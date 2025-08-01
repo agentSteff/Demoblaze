@@ -15,4 +15,8 @@ When("I log in using valid credentials", () => {
   cy.get(loginDashboardButton).click();
   cy.uiLogin(loginPersona, loginUsernameInput, loginPasswordInput);
   cy.get("button").contains(loginButtonText).click();
+  
+  // Wait for login to complete and modal to close
+  cy.wait("@loginCall");
+  cy.get('#logInModal').should('not.be.visible');
 });

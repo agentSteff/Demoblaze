@@ -1,0 +1,12 @@
+{
+  "test.admin": {
+    "username": "test.admin",
+    "password": "qwerty",
+    "name": "Admin",
+    "country": "ESP",
+    "city": "BCN",
+    "cc": 12345678,
+    "cc_month": 11,
+    "cc_year": 2025
+  }
+}

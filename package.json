@@ -1,7 +1,7 @@
 {
   "name": "demoblaze",
   "version": "1.0.0",
-  "description": "��#\u0000 \u0000D\u0000e\u0000m\u0000o\u0000b\u0000l\u0000a\u0000z\u0000e\u0000\r\u0000 \u0000",
+  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -23,5 +23,8 @@
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
     "cypress": "^14.5.3",
     "esbuild": "^0.25.8"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": "cypress/e2e/features/step_definitions/**/*.{js,ts}"
   }
 }

@@ -63,7 +63,7 @@ Then("The cart should be empty", () => {
 });
 
 Then("Purchase should complete", () => {
-  wait("@deleteCartCall").then(() => {
+  cy.wait("@deleteCartCall").then(() => {
     cy.contains("h2", successfulPurchase).should("exist");
   });
 }); 
