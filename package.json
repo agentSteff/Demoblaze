@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/agentSteff/Demoblaze/issues"
   },
-  "homepage": "https://github.com/agentSteff/Demoblaze#readme"
+  "homepage": "https://github.com/agentSteff/Demoblaze#readme",
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^22.2.0",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
+    "cypress": "^14.5.3",
+    "esbuild": "^0.25.8"
+  }
 }
