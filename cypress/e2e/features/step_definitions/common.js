@@ -6,7 +6,7 @@ const loginUsernameInput = '[id="loginusername"]';
 const loginPasswordInput = '[id="loginpassword"]';
 const loginButtonText = "Log in";
 
-Given("I visit the home page", () => {
+Given("que visito la página principal", () => {
   cy.visit("https://www.demoblaze.com/");
 });
 
