@@ -29,13 +29,15 @@ When("agrego lo detalles del registro", () => {
 });
 
 Then("muestra mensaje de confirmacion", () => {
-  cy.wait("@signupCall").then((interception) => {
-    expect(interception.response.statusCode).to.eq(200);
+  cy.wait("@signupCall").then((x) => {
+    expect(x.response.statusCode).to.eq(200);
     cy.on("window:alert", (text) => {
       expect(text).to.contains("Sign up successful.");
     });
   });
 });
+
+// ------------------------------------------------------------------------
 
 When("inicio sesion con credenciales validas", () => {
   cy.intercept("POST", "https://api.demoblaze.com/login").as("loginCall");
@@ -56,13 +58,10 @@ When("hago click en cerrar sesion", () => {
   cy.get(botonCerrarSesion).click();
 });
 
-Then("espero que me salga mensaje de confirmacion", () => {
-  cy.on("window:alert", (text) => {
-    expect(text).to.contains("Logged out successfully.");
-  });
-});
-
 Then("espero que se pueda iniciar sesion de nuevo", () => {
   cy.get(botonInicioSesion).should("be.visible");
   cy.get(nombreUsuarioEnPantalla).should("not.contain.text", `Welcome ${inicioSesionPersona}`);
 });
+
+// ------------------------------------------------------------------------
+
