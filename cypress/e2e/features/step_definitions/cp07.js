@@ -6,7 +6,7 @@ const productPrice = "360";
 const cartCallToAction = "Add to cart";
 const purchaseCallToAction = "Place Order";
 
-const buyer = "test.admin";
+const productoClase = ".card-block";
 const nameInput = '[id="name"]';
 const countryInput = '[id="country"]';
 const cityInput = '[id="city"]';
@@ -16,17 +16,25 @@ const yearInput = '[id="year"]';
 const purchaseButtonText = "Purchase";
 const successfulPurchase = "Thank you for your purchase!";
 
-When("agrego un producto al carrito", () => {
-  // Select the product, then add it to the cart
-  cy.get("a").contains(product).click();
-  cy.get("a").contains(cartCallToAction).click();
-});
+Then("confirmo que todos los productos visibles tienen nombre y precio", () => {
+  cy.get('.card-block').each(($card) => {
+    // Validar que tenga h4.cart-title > a con texto no vacío
+    cy.wrap($card)
+      .find('h4.cart-title a')
+      .should('exist')                      // el <a> debe existir
+      .invoke('text')                       // obtener el texto del <a>
+      .should('not.be.empty');              // el texto no debe estar vacío
 
-Then("veo el producto en el carrito", () => {
-  // Go to cart and check product is displayed correctly
-  cy.get(cartButtonDashboard).click();
-  cy.get("td").contains(product);
-  cy.get("td").contains(productPrice);
+    // Validar que tenga h5 con precio tipo "$360"
+    cy.wrap($card)
+      .find('h5')
+      .should('exist')                      // el <h5> debe existir
+      .invoke('text')                       // obtener el texto del h5
+      .should((priceText) => {
+        expect(priceText.trim()).to.match(/^\$\d+/); // Debe empezar con "$" seguido de al menos un dígito
+      });
+  });
+
 });
 
 //----------------------------------------------------------------------------

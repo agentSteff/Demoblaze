@@ -33,10 +33,13 @@ Cypress.Commands.add("uiLogin", (persona, userField, passwordField) => {
   });
 });
 
-Cypress.Commands.add("apiLogin", (persona) => {
+Cypress.Commands.add("uiOrdenar", (comprador, entradaNombre, entradaPais, entradaCiudad, entradaCC, entradaMes, entradaAno) => {
   cy.fixture(userFixture).then((user) => {
-    // get authorization such as a Bearer token from the backend
-    // set in the browser window and navigate directly to page under test
-    cy.log("not implemented");
+    cy.get(entradaNombre).type(user[comprador]["username"], { force: true });
+    cy.get(entradaPais).type(user[comprador]["country"], { force: true });
+    cy.get(entradaCiudad).type(user[comprador]["city"], { force: true });
+    cy.get(entradaCC).type(user[comprador]["cc"], { force: true });
+    cy.get(entradaMes).type(user[comprador]["cc_month"], { force: true });
+    cy.get(entradaAno).type(user[comprador]["cc_year"], { force: true });
   });
 });
