@@ -10,3 +10,9 @@ Feature: Operaciones productos del carrito
     When inicio sesion con credenciales validas
     When hago click en un producto
     Then confirmo que el producto producto tiene nombre y precio
+
+  Scenario: Visualizacion de precio en pagina del producto 
+    Given que visito la página principal
+    When inicio sesion con credenciales validas
+    When agrego un producto al carrito
+    Then veo el producto en el carrito

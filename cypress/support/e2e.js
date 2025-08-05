@@ -1,20 +1,22 @@
 // ***********************************************************
-// This example support/e2e.js is processed and
-// loaded automatically before your test files.
+// Este archivo se carga automáticamente antes de que corran nuestras pruebas.
 //
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
+// Es el lugar perfecto para poner configuraciones globales y
+// comportamientos que modifican cómo funciona Cypress.
 //
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
+// Puedes cambiar la ubicación de este archivo o desactivar
+// la carga automática de archivos de soporte con la
+// opción de configuración 'supportFile'.
 //
-// You can read more here:
+// Puedes leer más aquí:
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
+// ========== IMPORTACIÓN DE COMANDOS PERSONALIZADOS ==========
+// Traemos el archivo commands.js que tiene nuestros comandos personalizados
+// (como uiLogin y uiOrdenar) usando la sintaxis moderna de JavaScript (ES2015)
 import './commands'
 
-// Alternatively you can use CommonJS syntax:
+// ========== SINTAXIS ALTERNATIVA ==========
+// También puedes usar la sintaxis antigua de CommonJS si prefieres:
 // require('./commands')
