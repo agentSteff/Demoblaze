@@ -14,7 +14,7 @@
 
 // ========== IMPORTACIÓN DE COMANDOS PERSONALIZADOS ==========
 // Traemos el archivo commands.js que tiene nuestros comandos personalizados
-// (como uiLogin y uiOrdenar) usando la sintaxis moderna de JavaScript (ES2015)
+// (como uiOrdenar) usando la sintaxis moderna de JavaScript (ES2015)
 import './commands'
 
 // ========== SINTAXIS ALTERNATIVA ==========

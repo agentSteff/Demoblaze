@@ -1,64 +1,72 @@
 // ***********************************************
-// Este archivo nos permite crear comandos personalizados de Cypress
-// y también cambiar comandos que ya existen.
+// COMANDOS PERSONALIZADOS DE CYPRESS PARA DEMOBLAZE
+// 
+// Este archivo contiene comandos reutilizables específicos para las pruebas
+// de la aplicación DemoBlaze. Estos comandos simplifican operaciones comunes
+// como inicios de sesión y llenado de formularios de compra.
 //
-// Para ver más ejemplos de comandos personalizados:
+// Para más información sobre comandos personalizados:
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //
-//
-// -- Esto es un comando padre --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- Esto es un comando hijo --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- Esto es un comando dual --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- Esto sobrescribe un comando que ya existe --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+// Tipos de comandos disponibles:
+// -- Comando padre: Cypress.Commands.add('login', (email, password) => { ... })
+// -- Comando hijo: Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+// -- Comando dual: Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
+// -- Sobrescribir comando: Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+// Archivo JSON que contiene los datos de usuarios de prueba
 const userFixture = "users.json";
 
-// ========== COMANDO PERSONALIZADO PARA INICIAR SESIÓN ==========
-// Creamos un comando que se llama "uiLogin" para hacer login de forma fácil
-// Parámetros:
-// - persona: el nombre del usuario en el archivo JSON
-// - userField: la caja donde se escribe el nombre de usuario
-// - passwordField: la caja donde se escribe la contraseña
-Cypress.Commands.add("uiLogin", (persona, userField, passwordField) => {
-  // Cargamos el archivo JSON que tiene los datos de los usuarios
+// ========== COMANDOS PERSONALIZADOS PARA AUTENTICACIÓN ==========
+
+/**
+ * Comando para escribir el nombre de usuario en el campo correspondiente
+ * @param {string} persona - Nombre del usuario en el archivo users.json
+ * @param {string} userField - Selector CSS del campo de nombre de usuario
+ */
+Cypress.Commands.add("uiLoginPersona", (persona, userField) => {
+  // Cargamos el archivo JSON que contiene los datos de todos los usuarios de prueba
   cy.fixture(userFixture).then((user) => {
-    // Escribimos el nombre de usuario de la persona en la caja correspondiente
+    // Extraemos y escribimos el nombre de usuario específico en el campo indicado
     cy.get(userField).type(user[persona]["username"], { force: true });
-    // Escribimos la contraseña de la persona en la caja correspondiente
+  });
+});
+
+/**
+ * Comando para escribir la contraseña en el campo correspondiente
+ * @param {string} persona - Nombre del usuario en el archivo users.json
+ * @param {string} passwordField - Selector CSS del campo de contraseña
+ */
+Cypress.Commands.add("uiLoginContraseña", (persona, passwordField) => {
+  // Cargamos el archivo JSON que contiene los datos de todos los usuarios de prueba
+  cy.fixture(userFixture).then((user) => {
+    // Extraemos y escribimos la contraseña específica en el campo indicado
     cy.get(passwordField).type(user[persona]["password"], { force: true });
   });
 });
 
-// ========== COMANDO PERSONALIZADO PARA LLENAR FORMULARIO DE COMPRA ==========
-// Creamos un comando que se llama "uiOrdenar" para llenar formularios de compra
-// Parámetros:
-// - comprador: el nombre del comprador en el archivo JSON
-// - entradaNombre: caja donde va el nombre
-// - entradaPais: caja donde va el país
-// - entradaCiudad: caja donde va la ciudad
-// - entradaCC: caja donde va el número de tarjeta de crédito
-// - entradaMes: caja donde va el mes de vencimiento
-// - entradaAno: caja donde va el año de vencimiento
+// ========== COMANDO PERSONALIZADO PARA FORMULARIO DE COMPRA ==========
+
+/**
+ * Comando para completar automáticamente el formulario de finalización de compra
+ * @param {string} comprador - Nombre del comprador en el archivo users.json
+ * @param {string} entradaNombre - Selector CSS del campo de nombre completo
+ * @param {string} entradaPais - Selector CSS del campo de país
+ * @param {string} entradaCiudad - Selector CSS del campo de ciudad
+ * @param {string} entradaCC - Selector CSS del campo de número de tarjeta de crédito
+ * @param {string} entradaMes - Selector CSS del campo de mes de vencimiento
+ * @param {string} entradaAno - Selector CSS del campo de año de vencimiento
+ */
 Cypress.Commands.add("uiOrdenar", (comprador, entradaNombre, entradaPais, entradaCiudad, entradaCC, entradaMes, entradaAno) => {
-  // Cargamos el archivo JSON que tiene los datos de los compradores
+  // Cargamos el archivo JSON que contiene los datos de compradores de prueba
   cy.fixture(userFixture).then((user) => {
-    // Llenamos cada campo del formulario con los datos del comprador
-    cy.get(entradaNombre).type(user[comprador]["username"], { force: true });    // Nombre
-    cy.get(entradaPais).type(user[comprador]["country"], { force: true });       // País
-    cy.get(entradaCiudad).type(user[comprador]["city"], { force: true });        // Ciudad
-    cy.get(entradaCC).type(user[comprador]["cc"], { force: true });              // Tarjeta de crédito
-    cy.get(entradaMes).type(user[comprador]["cc_month"], { force: true });       // Mes de vencimiento
-    cy.get(entradaAno).type(user[comprador]["cc_year"], { force: true });        // Año de vencimiento
+    // Completamos cada campo del formulario con los datos específicos del comprador
+    cy.get(entradaNombre).type(user[comprador]["username"], { force: true });    // Nombre completo del comprador
+    cy.get(entradaPais).type(user[comprador]["country"], { force: true });       // País de residencia
+    cy.get(entradaCiudad).type(user[comprador]["city"], { force: true });        // Ciudad de residencia
+    cy.get(entradaCC).type(user[comprador]["cc"], { force: true });              // Número de tarjeta de crédito
+    cy.get(entradaMes).type(user[comprador]["cc_month"], { force: true });       // Mes de vencimiento (MM)
+    cy.get(entradaAno).type(user[comprador]["cc_year"], { force: true });        // Año de vencimiento (YYYY)
   });
 });
